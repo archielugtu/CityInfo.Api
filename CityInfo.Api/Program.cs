@@ -21,7 +21,7 @@ var app = builder.Build(); // returns of type WebApplication
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseSwagger(); // important this is added before UseSwaggerUI(), as data is retrieved from calling this method
     app.UseSwaggerUI();
 }
 
