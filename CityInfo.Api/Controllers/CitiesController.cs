@@ -25,7 +25,7 @@ namespace CityInfo.Api.Controllers
         public ActionResult<CityDto> GetCity(int id)
         {
             //return new JsonResult(CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id) );
-            var cityToReturn = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id) );
+            var cityToReturn = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
             if (cityToReturn == null)
                 return NotFound();
 
