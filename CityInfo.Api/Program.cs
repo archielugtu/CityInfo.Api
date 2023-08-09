@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.StaticFiles;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,12 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 // **************************************************************************************************
 // When you register services to the services container, you can use depedency injection to inject that service to controller constructors
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.ReturnHttpNotAcceptable = true; // Returns a HTTP 406 Not Acceptable response if the consumer of the API asks for a certain representation of data that we don't support.
+}).AddXmlDataContractSerializerFormatters(); // This adds input/output XML formatters. Adds XML support to our API
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<FileExtensionContentTypeProvider>(); // registers a service with a singleton lifetime in the container for file extension features
 
-var app = builder.Build(); // returns of type WebApplication
+var app = builder.Build(); // returns of type WebApplicationf
 
 
 // **************************************************************************************************
